@@ -28,64 +28,67 @@ struct EditProfileOverlayView: View {
                 .ignoresSafeArea()
                 .onTapGesture { }
 
-            VStack(spacing: 0) {
-                Spacer()
-                    .frame(height: 60)
-
-                VStack(spacing: 24) {
-                    Text("Edit Profile")
-                        .font(.poppinsBold(size: 22))
-                        .foregroundColor(EditProfileOverlayColors.textPrimary)
-
-                    avatarGrid
-
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Your Name")
-                            .font(.poppinsBold(size: 12))
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    Spacer()
+                        .frame(height: 60)
+                    
+                    VStack(spacing: 24) {
+                        Text("Edit Profile")
+                            .font(.poppinsBold(size: 22))
                             .foregroundColor(EditProfileOverlayColors.textPrimary)
-
-                        TextField("Enter Your Name", text: $name)
-                            .font(.poppinsRegular(size: 15))
-                            .foregroundColor(EditProfileOverlayColors.textPrimary)
-                            .padding(20)
-                            .background(EditProfileOverlayColors.fieldBackground)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
-                    }
-
-                    VStack(spacing: 12) {
-                        Button(action: {
-                            onSave?(name, selectedAvatarId)
-                            isPresented = false
-                        }) {
-                            Text("Save Changes")
-                                .font(.poppinsSemiBold(size: 18))
+                        
+                        avatarGrid
+                        
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Your Name")
+                                .font(.poppinsBold(size: 12))
                                 .foregroundColor(EditProfileOverlayColors.textPrimary)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 20)
-                                .background(EditProfileOverlayColors.saveGreen)
+                            
+                            TextField("Enter Your Name", text: $name)
+                                .font(.poppinsRegular(size: 15))
+                                .foregroundColor(EditProfileOverlayColors.textPrimary)
+                                .padding(20)
+                                .background(EditProfileOverlayColors.fieldBackground)
                                 .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
-
-                        Button(action: {
-                            isPresented = false
-                        }) {
-                            Text("Cancel")
-                                .font(.poppinsSemiBold(size: 18))
-                                .foregroundColor(EditProfileOverlayColors.textPrimary)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 20)
-                                .background(EditProfileOverlayColors.cancelRed)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                        
+                        VStack(spacing: 12) {
+                            Button(action: {
+                                onSave?(name, selectedAvatarId)
+                                isPresented = false
+                            }) {
+                                Text("Save Changes")
+                                    .font(.poppinsSemiBold(size: 18))
+                                    .foregroundColor(EditProfileOverlayColors.textPrimary)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 20)
+                                    .background(EditProfileOverlayColors.saveGreen)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
+                            
+                            Button(action: {
+                                isPresented = false
+                            }) {
+                                Text("Cancel")
+                                    .font(.poppinsSemiBold(size: 18))
+                                    .foregroundColor(EditProfileOverlayColors.textPrimary)
+                                    .frame(maxWidth: .infinity)
+                                    .padding(.vertical, 20)
+                                    .background(EditProfileOverlayColors.cancelRed)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                            }
                         }
                     }
+                    .padding(24)
+                    .background(EditProfileOverlayColors.cardBackground)
+                    .clipShape(RoundedRectangle(cornerRadius: 24))
+                    .shadow(color: EditProfileOverlayColors.saveGreen, radius: 240, x: 0, y: 0)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 100)
+                    
+                    Spacer()
                 }
-                .padding(24)
-                .background(EditProfileOverlayColors.cardBackground)
-                .clipShape(RoundedRectangle(cornerRadius: 24))
-                .shadow(color: EditProfileOverlayColors.saveGreen, radius: 240, x: 0, y: 0)
-                .padding(.horizontal, 20)
-
-                Spacer()
             }
         }
         .onAppear {

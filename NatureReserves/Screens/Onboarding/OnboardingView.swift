@@ -84,51 +84,53 @@ private struct OnboardingPageContent: View {
     let onNext: () -> Void
 
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer()
-
-            Image(page.iconName)
-                .resizable()
-                .scaledToFit()
-                .padding(.horizontal, 94)
-
-            Text(page.title)
-                .font(.poppinsMedium(size: 24))
-                .foregroundColor(.white)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-                .padding(.top, 50)
-
-            Text(page.description)
-                .font(.poppinsRegular(size: 14))
-                .foregroundColor(.white.opacity(0.5))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-                .padding(.top, 30)
-
-
-            HStack(spacing: 8) {
-                ForEach(0..<totalPages, id: \.self) { index in
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(index == pageIndex ? Color(red: 255, green: 187, blue: 0) : .white.opacity(0.2))
-                        .frame(width: 24, height: 6)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                Spacer()
+                
+                Image(page.iconName)
+                    .resizable()
+                    .scaledToFit()
+                    .padding(.horizontal, 94)
+                
+                Text(page.title)
+                    .font(.poppinsMedium(size: 24))
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                    .padding(.top, 50)
+                
+                Text(page.description)
+                    .font(.poppinsRegular(size: 14))
+                    .foregroundColor(.white.opacity(0.5))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 40)
+                    .padding(.top, 30)
+                
+                
+                HStack(spacing: 8) {
+                    ForEach(0..<totalPages, id: \.self) { index in
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(index == pageIndex ? Color(red: 255, green: 187, blue: 0) : .white.opacity(0.2))
+                            .frame(width: 24, height: 6)
+                    }
                 }
+                .padding(.top, 24)
+                
+                Spacer()
+                
+                Button(action: onNext) {
+                    Text(pageIndex == totalPages - 1 ? "Continue" : "Next")
+                        .font(.poppinsSemiBold(size: 18))
+                        .foregroundColor(Color(red: 18, green: 18, blue: 18))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 20)
+                        .background(Color(red: 255, green: 187, blue: 0))
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 26)
             }
-            .padding(.top, 24)
-
-            Spacer()
-
-            Button(action: onNext) {
-                Text(pageIndex == totalPages - 1 ? "Continue" : "Next")
-                    .font(.poppinsSemiBold(size: 18))
-                    .foregroundColor(Color(red: 18, green: 18, blue: 18))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 20)
-                    .background(Color(red: 255, green: 187, blue: 0))
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
-            }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 26)
         }
     }
 }
